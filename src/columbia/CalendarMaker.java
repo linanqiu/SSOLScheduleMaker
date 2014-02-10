@@ -10,6 +10,8 @@ import java.util.Collection;
 import biweekly.Biweekly;
 import biweekly.ICalendar;
 import biweekly.component.VEvent;
+import biweekly.property.DateEnd;
+import biweekly.property.DateStart;
 import biweekly.property.RecurrenceRule;
 import biweekly.property.RecurrenceRule.Frequency;
 import biweekly.property.Summary;
@@ -43,10 +45,15 @@ public class CalendarMaker {
 
 					SimpleDateFormat ft = new SimpleDateFormat("MM/dd/yy h:mma");
 
-					event.setDateStart(ft.parse(section.getStartDate() + " "
-							+ section.getStartTime()));
-					event.setDateEnd(ft.parse(section.getStartDate() + " "
+					DateStart dateStart = new DateStart(ft.parse(section
+							.getStartDate() + " " + section.getStartTime()));
+					dateStart.setTimezoneId("America/New_York");
+					event.setDateStart(dateStart);
+					
+					DateEnd dateEnd = new DateEnd(ft.parse(section.getStartDate() + " "
 							+ section.getEndTime()));
+					dateEnd.setTimezoneId("America/New_York");
+					event.setDateEnd(dateEnd);
 
 					RecurrenceRule rrule = new RecurrenceRule(Frequency.WEEKLY);
 
